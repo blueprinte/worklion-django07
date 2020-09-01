@@ -3,14 +3,12 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 
 def sign_up(request):
-    context = {}
-    
     if request.method == 'POST':
         if (request.POST['username'] and
                 request.POST['password'] and
                 request.POST['password'] == request.POST['password_check']):
             
-            new_user = User.objects.create(
+            new_user = User.objects.create_user(
                 username=request.POST['username'],
                 password=request.POST['password'],
             )
@@ -19,11 +17,9 @@ def sign_up(request):
             auth.login(request, new_user)
             return redirect('index')
     
-    return render(request, 'sign_up.html', context)
+    return render(request, 'sign_up.html')
     
 def login(request):
-    context = {}
-
     if request.method == 'POST':
         if request.POST['username'] and request.POST['password']:
 
@@ -38,7 +34,7 @@ def login(request):
                 return redirect('index')
 
 
-    return render(request, 'login.html', context)
+    return render(request, 'login.html')
     
 def logout(request):
     if request.method == 'POST':
