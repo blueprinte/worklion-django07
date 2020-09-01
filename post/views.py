@@ -28,8 +28,7 @@ def detail(request, post_id):
 def create(request):
     title = request.POST['title']
     content = request.POST['content']
-    post_active = request.POST['post_active']
-    post = Post(title=title, content=content, post_active=post_active, created_at=timezone.now())
+    post = Post(title=title, content=content, created_at=timezone.now())
     post.save()
     return redirect('post:detail', post_id=post.id)
 
